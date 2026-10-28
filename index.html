@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cupos por media hora · Erlang C</title>
+<meta name="theme-color" content="#1f6feb">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Cupos">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main>
+<h1>📞 Cupos de gestores por media hora</h1>
+<p class="sub">Erlang C aplicado a cada franja de 30 minutos del día.</p>
+
+<section class="card">
+<h2>Parámetros</h2>
+<div class="grid">
+<div><label>Inicio de operación</label><select id="st"></select></div>
+<div><label>Fin de operación</label><select id="en"></select></div>
+<div><label>TMO / AHT (seg)</label><input id="aht" type="number" min="1" value="240"></div>
+<div><label>Nivel de servicio (%)</label><input id="sl" type="number" min="1" max="100" value="80"></div>
+<div><label>Responder en (seg)</label><input id="thr" type="number" min="1" value="20"></div>
+<div><label>Ocupación máxima (%)</label><input id="occ" type="number" min="10" max="100" value="85"></div>
+<div><label>Shrinkage (%)</label><input id="shr" type="number" min="0" max="90" value="30"></div>
+</div>
+</section>
+
+<section class="card">
+<h2>Resumen del día</h2>
+<div class="kpis" id="kpis"></div>
+</section>
+
+<section class="card">
+<h2>Llamadas y cupos por media hora</h2>
+<div class="wrap"><table id="tbl"></table></div>
+<p class="note">Cupos = agentes en línea ÷ (1 − shrinkage), redondeado hacia arriba. En «Programados» puedes anotar los agentes que ya tienes para ver la diferencia (positivo = sobra, negativo = falta).</p>
+<div class="row">
+<button class="sec" onclick="clearAll()">Borrar llamadas</button>
+<button class="sec" onclick="copyTbl()">Copiar resultados</button>
+</div>
+</section>
+
+<section class="card">
+<h2>Pegar desde Excel</h2>
+<label>Pega una columna de llamadas (una por franja, desde la hora de inicio)</label>
+<textarea id="paste" rows="4" placeholder="12&#10;30&#10;55&#10;..."></textarea>
+<div class="row"><button onclick="doPaste()">Aplicar</button></div>
+</section>
+
+<section class="card">
+<h2>Cupos por franja</h2>
+<div class="wrap"><div id="chart"></div></div>
+<p class="note">Barras azules: cupos requeridos. Barras grises: programados.</p>
+</section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
