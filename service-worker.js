@@ -1,4 +1,4 @@
-const CACHE = "cupos-erlang-v1";
+const CACHE = "cupos-erlang-v2";
 const FILES = [
   "./",
   "./index.html",

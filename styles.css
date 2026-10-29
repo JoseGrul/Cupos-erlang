@@ -1,28 +1,224 @@
-:root{--bg:#f6f7f9;--card:#fff;--tx:#1b2430;--mu:#5b6676;--bd:#dde2e9;--ac:#1f6feb;--ok:#1a7f4b;--bad:#c62828;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10151c;--card:#182029;--tx:#e8edf3;--mu:#9aa6b5;--bd:#2a3542;--ac:#5aa2ff;--ok:#4cc38a;--bad:#ff7b72;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#10151c;--card:#182029;--tx:#e8edf3;--mu:#9aa6b5;--bd:#2a3542;--ac:#5aa2ff;--ok:#4cc38a;--bad:#ff7b72;color-scheme:dark}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-main{max-width:1040px;margin:0 auto;padding:20px 16px 40px}
-h1{font-size:22px;margin:0 0 2px}h2{font-size:16px;margin:0 0 12px}
-.sub,.note{color:var(--mu)}.sub{margin:0 0 18px}.note{font-size:12px;margin:10px 0 0}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;margin-bottom:16px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
-label{display:block;font-size:12px;color:var(--mu);margin-bottom:4px}
-input,select,textarea,button{width:100%;padding:8px 10px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font:inherit}
-button{cursor:pointer;width:auto;background:var(--ac);color:#fff;border-color:var(--ac)}
-button.sec{background:transparent;color:var(--tx);border-color:var(--bd)}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
-.kpi{border:1px solid var(--bd);border-radius:10px;padding:10px 12px}
-.kpi b{display:block;font-size:24px;line-height:1.2}.kpi span{font-size:12px;color:var(--mu)}
-.kpi.main{border-color:var(--ac)}.kpi.main b{color:var(--ac)}
-.wrap{overflow-x:auto}
-table{border-collapse:collapse;width:100%;min-width:700px}
-th,td{padding:5px 8px;text-align:right;border-bottom:1px solid var(--bd);font-size:14px;white-space:nowrap}
-th:first-child,td:first-child{text-align:left}th{color:var(--mu);font-weight:600;font-size:12px}
-td input{width:84px;text-align:right;padding:4px 6px}
-tr.tot td{font-weight:700;background:color-mix(in srgb,var(--ac) 12%,transparent)}
-.ok{color:var(--ok)}.bad{color:var(--bad)}
-.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-svg text{fill:var(--mu);font-size:10px}.bar{fill:var(--ac)}.bar2{fill:var(--mu);opacity:.35}
+/*    Calculadora de cupos (Erlang C) - Estilos
+    */
+
+/* ---------- 1. Variables y temas ---------- */
+:root {
+  /* Tema claro (por defecto) */
+  --bg:  #f6f7f9;
+  --card:#fff;
+  --tx:  #1b2430;
+  --mu:  #5b6676;
+  --bd:  #dde2e9;
+  --ac:  #1f6feb;
+  --ok:  #1a7f4b;
+  --bad: #c62828;
+  color-scheme: light;
+
+  /* Áreas seguras (notch / barras del sistema) */
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Tema oscuro automático (según el sistema) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:  #10151c;
+    --card:#182029;
+    --tx:  #e8edf3;
+    --mu:  #9aa6b5;
+    --bd:  #2a3542;
+    --ac:  #5aa2ff;
+    --ok:  #4cc38a;
+    --bad: #ff7b72;
+    color-scheme: dark;
+  }
+}
+
+/* Tema oscuro forzado manualmente */
+:root[data-theme="dark"] {
+  --bg:  #10151c;
+  --card:#182029;
+  --tx:  #e8edf3;
+  --mu:  #9aa6b5;
+  --bd:  #2a3542;
+  --ac:  #5aa2ff;
+  --ok:  #4cc38a;
+  --bad: #ff7b72;
+  color-scheme: dark;
+}
+
+
+/* ---------- 2. Base ---------- */
+html {
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--tx);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+main {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 20px 16px 40px;
+}
+
+
+/* ---------- 3. Tipografía ---------- */
+h1 { font-size: 22px; margin: 0 0 2px; }
+h2 { font-size: 16px; margin: 0 0 12px; }
+
+.sub,
+.note { color: var(--mu); }
+
+.sub  { margin: 0 0 18px; }
+.note { font-size: 12px; margin: 10px 0 0; }
+
+
+/* ---------- 4. Layout ---------- */
+.card {
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.wrap {
+  overflow-x: auto;
+}
+
+
+/* ---------- 5. Formularios y botones ---------- */
+label {
+  display: block;
+  font-size: 12px;
+  color: var(--mu);
+  margin-bottom: 4px;
+}
+
+input,
+select,
+textarea,
+button {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--bd);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--tx);
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  width: auto;
+  background: var(--ac);
+  color: #fff;
+  border-color: var(--ac);
+}
+
+button.sec {
+  background: transparent;
+  color: var(--tx);
+  border-color: var(--bd);
+}
+
+
+/* ---------- 6. KPIs ---------- */
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+.kpi {
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.kpi b {
+  display: block;
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.kpi span {
+  font-size: 12px;
+  color: var(--mu);
+}
+
+.kpi.main        { border-color: var(--ac); }
+.kpi.main b      { color: var(--ac); }
+
+
+/* ---------- 7. Tabla ---------- */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 700px;
+}
+
+th,
+td {
+  padding: 5px 8px;
+  text-align: right;
+  border-bottom: 1px solid var(--bd);
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+th:first-child,
+td:first-child {
+  text-align: left;
+}
+
+th {
+  color: var(--mu);
+  font-weight: 600;
+  font-size: 12px;
+}
+
+td input {
+  width: 84px;
+  text-align: right;
+  padding: 4px 6px;
+}
+
+tr.tot td {
+  font-weight: 700;
+  background: color-mix(in srgb, var(--ac) 12%, transparent);
+}
+
+
+/* ---------- 8. Estados (diferencia vs. programado) ---------- */
+.ok  { color: var(--ok); }
+.bad { color: var(--bad); }
+
+
+/* ---------- 9. Gráfico SVG ---------- */
+svg text { fill: var(--mu); font-size: 10px; }
+.bar     { fill: var(--ac); }
+.bar2    { fill: var(--mu); opacity: .35; }
